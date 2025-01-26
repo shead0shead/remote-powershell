@@ -57,8 +57,8 @@ class ServerObject
     {
         while (true)
         {
-            string? command = Console.ReadLine();
-            if ((command.StartsWith("execute") || command.StartsWith("exec")) && command.Split(' ').Length >= 3)
+            string? command = Console.ReadLine().ToLower();
+            if ((command.StartsWith("execute") || command.StartsWith("exec") || command.StartsWith("!")) && command.Split(' ').Length >= 3)
             {
                 string id = command.Split(' ')[1];
                 string message = "";
@@ -83,7 +83,8 @@ class ServerObject
                     RemoveConnection(command.Split(' ')[2]);
                 }
             }
-            else if (command.StartsWith("clear")) Console.Clear();
+            else if (command.StartsWith("clear") || command.StartsWith("clr")) Console.Clear();
+            else if (command.StartsWith("quit") || command.StartsWith("exit")) Environment.Exit(0);
         }
     }
 
