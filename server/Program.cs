@@ -2,6 +2,8 @@
 using System.Net.Sockets;
 
 ServerObject server = new ServerObject();
+Menu menu = new Menu();
+menu.Show();
 await server.ListenAsync();
 class ServerObject
 {
@@ -161,5 +163,68 @@ class ClientObject
         Writer.Close();
         Reader.Close();
         client.Close();
+    }
+}
+class Menu
+{
+    protected string[] title =
+    {
+        @"                   _                                     _        _ _ ",
+        @" _ _ ___ _ __  ___| |_ ___   _ __  _____ __ _____ _ _ __| |_  ___| | |",
+        @"| '_/ -_) '  \/ _ \  _/ -_) | '_ \/ _ \ V  V / -_) '_(_-< ' \/ -_) | |",
+        @"|_| \___|_|_|_\___/\__\___| | .__/\___/\_/\_/\___|_| /__/_||_\___|_|_|",
+        @"                            |_|                                       "
+    };
+
+    protected string[] info =
+    {
+        "Tool    :: Remote Powershell",
+        "Author  :: Egor Konovalov (shead0shead)",
+        "GitHub  :: github.com/shead0shead/remote-powershell",
+        "Version :: 1.0"
+    };
+
+    protected string[] menu =
+{
+        "COMMANDS :: Available commands show below",
+        "",
+        "[*] Clear terminal                         CLEAR, CLR",
+        "[*] Execute command on remote client       EXECUTE, EXEC, !",
+        "[*] Show connections list                  CONNECTION LIST",
+        "[*] Remove connection with remote client   CONNECTION REMOVE",
+        "[*] Quit Remote-Powershell                 QUIT, EXIT"
+    };
+
+    public void Show()
+    {
+        Console.CursorVisible = false;
+        int i = 0;
+        int left = Console.WindowWidth / 2 - title[0].Length / 2;
+        Console.ForegroundColor = ConsoleColor.White;
+        foreach (string line in title)
+        {
+            Console.SetCursorPosition(left, i + 2);
+            Console.WriteLine(line);
+            i++;
+        }
+        Console.ResetColor();
+        foreach (string line in info)
+        {
+            Console.SetCursorPosition(left, i + 3);
+            Console.WriteLine(line);
+            i++;
+        }
+        foreach (string line in menu)
+        {
+            Console.SetCursorPosition(left, i + 4);
+            Console.WriteLine(line);
+            i++;
+        }
+
+        Console.SetCursorPosition(left, i + 5);
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+        Console.Clear();
+        Console.CursorVisible = true;
     }
 }
