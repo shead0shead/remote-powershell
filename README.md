@@ -40,7 +40,25 @@ string host = "127.0.0.1"; // Change 127.0.0.1 (IP) to the one you need
 int port = 8802;           // Change 8802 (Port) to the one you need
 ```
 
-Please note that if you use services that will help you expand your local network, you may have problems reconnecting the client back to the server after it is turned off, as the connection will remain active for the client.
+If you don't want the application to be automatically hidden after launch, delete the code shown below.
+
+```csharp
+[DllImport("user32.dll")]
+static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+[DllImport("kernel32.dll")]
+static extern IntPtr GetConsoleWindow();
+
+const int SW_HIDE = 0;
+const int SW_SHOW = 5;
+
+var handle = GetConsoleWindow();
+ShowWindow(handle, SW_HIDE);
+```
+
+You can also delete only the last line shown, this will also make the app visible after launch.
+
+Please note that if you use services that will help you expand your local network, such as ngrok, then you may have problems reconnecting the client to the server after it is turned off, since the connection for the client will remain active.
 
 ## client-and-installer
 
