@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Reflection.PortableExecutable;
 
 ServerObject server = new ServerObject();
 Menu menu = new Menu();
@@ -87,6 +88,17 @@ class ServerObject
             }
             else if (command.StartsWith("clear") || command.StartsWith("clr")) Console.Clear();
             else if (command.StartsWith("quit") || command.StartsWith("exit")) Environment.Exit(0);
+            else if ((command.StartsWith("download") || command.StartsWith("dload") || command.StartsWith("+")) && command.Split(' ').Length >= 3)
+            {
+                string id = command.Split(' ')[1];
+                string message = "";
+                for (int i = 2; i < command.Split(' ').Length; i++)
+                {
+                    if (i == 2) message += command.Split(' ')[i];
+                    else message += " " + command.Split(' ')[i];
+                }
+                await SendMessageAsync($"dload-func {message}", id);
+            }
         }
     }
 
@@ -136,9 +148,16 @@ class ClientObject
                         first = true;
                         continue;
                     }
-                    if (first == true) Console.WriteLine($"{Name} ({Id})");
-                    first = false;
-                    Console.WriteLine(message);
+                    else if (message.StartsWith("dload-func"))
+                    {
+                        await RecieveFileAsync(message.Replace("dload-func ", string.Empty));
+                    }
+                    else
+                    {
+                        if (first == true) Console.WriteLine($"{Name} ({Id})");
+                        first = false;
+                        Console.WriteLine(message);
+                    }
                 }
                 catch
                 {
@@ -155,6 +174,26 @@ class ClientObject
         finally
         {
             server.RemoveConnection(Id);
+        }
+    }
+
+    public async Task RecieveFileAsync(string path)
+    {
+        string fileName = Path.GetFileName(path);
+        //string savePath = $@"C:\Users\{Environment.UserName}\Downloads\{fileName}";
+        string savePath = $@"C:\Users\{Environment.UserName}\Downloads\{Path.GetFileNameWithoutExtension(path)}_(recieved){Path.GetExtension(path)}";
+        try
+        {
+            await Writer.WriteLineAsync("dload-ready");
+            await Writer.FlushAsync();
+            string base64Data = await Reader.ReadLineAsync();
+            byte[] fileData = Convert.FromBase64String(base64Data);
+            File.WriteAllBytes(savePath, fileData);
+            Console.WriteLine("The file is received and saved as: " + savePath);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error when receiving the file: {e.Message}");
         }
     }
 
@@ -181,7 +220,7 @@ class Menu
         "Tool    :: Remote Powershell",
         "Author  :: Egor Konovalov (shead0shead)",
         "GitHub  :: github.com/shead0shead/remote-powershell",
-        "Version :: 1.0"
+        "Version :: 1.2"
     };
 
     protected string[] menu =
@@ -190,6 +229,7 @@ class Menu
         "",
         "[*] Clear terminal                         CLEAR, CLR",
         "[*] Execute command on remote client       EXECUTE, EXEC, !",
+        "[*] Download file on remote client         DOWNLOAD, DLOAD, +",
         "[*] Show connections list                  CONNECTION LIST",
         "[*] Remove connection with remote client   CONNECTION REMOVE",
         "[*] Quit Remote-Powershell                 QUIT, EXIT"
