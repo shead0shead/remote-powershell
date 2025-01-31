@@ -39,7 +39,7 @@ const int SW_HIDE = 0;
 const int SW_SHOW = 5;
 
 var handle = GetConsoleWindow();
-//ShowWindow(handle, SW_HIDE);
+ShowWindow(handle, SW_HIDE);
 
 string host = "127.0.0.1";
 int port = 8802;
