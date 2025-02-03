@@ -6,7 +6,7 @@ The application is divided into two main sections: client and server. And there 
 
 ## server 
 
-[Click to view](https://github.com/shead0shead/remote-powershell/tree/main/server)
+[Click to view](https://github.com/shead0shead/remote-powershell/tree/main/src/server)
 
 The server folder contains all the files related to the part of the program that should be executed on the device from which the commands will be sent.
 
@@ -30,7 +30,7 @@ Despite the fact that the disconnect command forcibly disconnects the remote cli
 
 ## client
 
-[Click to view](https://github.com/shead0shead/remote-powershell/tree/main/client)
+[Click to view](https://github.com/shead0shead/remote-powershell/tree/main/src/client)
 
 The client folder contains all the files related to the part of the program that should be executed on the device to which the commands will be sent and executed.
 
@@ -63,7 +63,7 @@ Please note that if you use services that will help you expand your local networ
 
 ## client-and-installer
 
-[Click to view](https://github.com/shead0shead/remote-powershell/tree/main/client-and-installer)
+[Click to view](https://github.com/shead0shead/remote-powershell/tree/main/src/client-and-installer)
 
 Client-and-installer is a version of the application that, when launched, automatically installs the client on a remote computer and adds it to Windows Startup.
 
