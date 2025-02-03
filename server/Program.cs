@@ -61,6 +61,7 @@ class ServerObject
         while (true)
         {
             string? command = Console.ReadLine().ToLower();
+            // Execute command
             if ((command.StartsWith("execute") || command.StartsWith("exec") || command.StartsWith("!")) && command.Split(' ').Length >= 3)
             {
                 string id = command.Split(' ')[1];
@@ -72,22 +73,21 @@ class ServerObject
                 }
                 await SendMessageAsync(message, id);
             }
-            else if (command.StartsWith("connection"))
+            // Connection-list command
+            else if ((command.StartsWith("connection-list") || command.StartsWith("con-list")) && command.Split(' ').Length == 1)
             {
-                if (command.Split(' ')[1] == "list")
+                foreach (var client in clients)
                 {
-                    foreach (var client in clients)
-                    {
-                        Console.WriteLine("- " + client.Name + " " + client.Id);
-                    }
-                }
-                else if (command.Split(' ')[1] == "remove" && command.Split(' ').Length >= 3)
-                {
-                    RemoveConnection(command.Split(' ')[2]);
+                    Console.WriteLine("- " + client.Name + " " + client.Id);
                 }
             }
-            else if (command.StartsWith("clear") || command.StartsWith("clr")) Console.Clear();
-            else if (command.StartsWith("quit") || command.StartsWith("exit")) Environment.Exit(0);
+            // Connection-remove command
+            else if ((command.StartsWith("connection-remove") || command.StartsWith("con-remove")) && command.Split(' ').Length == 2) RemoveConnection(command.Split(' ')[1]);
+            // Clear commmand
+            else if ((command.StartsWith("clear") || command.StartsWith("clr")) && command.Split(' ').Length == 1) Console.Clear();
+            // Quit command
+            else if ((command.StartsWith("quit") || command.StartsWith("exit")) && command.Split(' ').Length == 1) Environment.Exit(0);
+            // Download command
             else if ((command.StartsWith("download") || command.StartsWith("dload") || command.StartsWith("+")) && command.Split(' ').Length >= 3)
             {
                 string id = command.Split(' ')[1];
