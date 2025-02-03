@@ -230,8 +230,8 @@ class Menu
         "[*] Clear terminal                         CLEAR, CLR",
         "[*] Execute command on remote client       EXECUTE, EXEC, !",
         "[*] Download file on remote client         DOWNLOAD, DLOAD, +",
-        "[*] Show connections list                  CONNECTION-LIST",
-        "[*] Remove connection with remote client   CONNECTION-REMOVE",
+        "[*] Show connections list                  CONNECTION-LIST, CON-LIST",
+        "[*] Remove connection with remote client   CONNECTION-REMOVE, CON-REMOVE",
         "[*] Quit Remote-Powershell                 QUIT, EXIT"
     };
 
