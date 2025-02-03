@@ -17,14 +17,14 @@ Just change the IP and Port to the one you need and run the program while waitin
 TcpListener tcpListener = new TcpListener(IPAddress.Any, 8802);
 ```
 
-| Command           | Description                                                                  | Syntax                        | Aliases  |
-| ----------------- | ---------------------------------------------------------------------------- | ----------------------------- | -------- |
-| execute           | Sends and executes the command you specified on the remote client's computer | execute [client-id] [command] | exec, !  |
-| download          | Downloads the file you specified from a remote client's computer             | download [client-id] [path]   | dload, + |
-| connection list   | Gives a list of all active remote connections                                | connection list               |          |
-| connection remove | Forcibly disconnects the specified remote client from the server             | connection remove [client-id] |          |
-| clear             | Clears the terminal                                                          | clear                         | clr      |
-| quit              | Closes the application                                                       | quit                          | exit     |
+| Command           | Description                                                                  | Syntax                        | Aliases    |
+| ----------------- | ---------------------------------------------------------------------------- | ----------------------------- | ---------- |
+| execute           | Sends and executes the command you specified on the remote client's computer | execute [client-id] [command] | exec, !    |
+| download          | Downloads the file you specified from a remote client's computer             | download [client-id] [path]   | dload, +   |
+| connection-list   | Gives a list of all active remote connections                                | connection-list               | con-list   |
+| connection-remove | Forcibly disconnects the specified remote client from the server             | connection-remove [client-id] | con-remove |
+| clear             | Clears the terminal                                                          | clear                         | clr        |
+| quit              | Closes the application                                                       | quit                          | exit       |
 
 Despite the fact that the disconnect command forcibly disconnects the remote client from the server, the automatic reconnection function in the client can still restore connections after a while.
 
