@@ -257,7 +257,7 @@ class Menu
         "Tool    :: Remote Powershell",
         "Author  :: Egor Konovalov (shead0shead)",
         "GitHub  :: github.com/shead0shead/remote-powershell",
-        "Version :: 1.2"
+        "Version :: 1.3"
     };
 
     protected string[] menu =
