@@ -212,7 +212,6 @@ class ClientObject
     public async Task RecieveFileAsync(string path)
     {
         string fileName = Path.GetFileName(path);
-        //string savePath = $@"C:\Users\{Environment.UserName}\Downloads\{fileName}";
         string savePath = $@"C:\Users\{Environment.UserName}\Downloads\{Path.GetFileNameWithoutExtension(path)}_(recieved){Path.GetExtension(path)}";
         try
         {
@@ -221,11 +220,11 @@ class ClientObject
             string base64Data = await Reader.ReadLineAsync();
             byte[] fileData = Convert.FromBase64String(base64Data);
             File.WriteAllBytes(savePath, fileData);
-            Console.WriteLine("The file is received and saved as: " + savePath);
+            Console.WriteLine("File saved as: " + savePath);
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error when receiving the file: {e.Message}");
+            Console.WriteLine($"Receiving error: {e.Message}");
         }
     }
 
@@ -240,12 +239,12 @@ class ClientObject
                 string base64Data = Convert.ToBase64String(fileData);
                 await Writer.WriteLineAsync(base64Data);
                 await Writer.FlushAsync();
-                Console.WriteLine("File has been sent: " + path);
+                Console.WriteLine("File sent: " + path);
             }
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error when sending the file: {e.Message}");
+            Console.WriteLine($"Sending error: {e.Message}");
         }
     }
 
