@@ -19,6 +19,7 @@ TcpListener tcpListener = new TcpListener(IPAddress.Any, 8802);
 
 | Command           | Description                                                                  | Syntax                        | Aliases    |
 | ----------------- | ---------------------------------------------------------------------------- | ----------------------------- | ---------- |
+| help              | Shows a list of all available commands                                       | help                          | ?          |
 | execute           | Sends and executes the command you specified on the remote client's computer | execute [client-id] [command] | exec, !    |
 | download          | Downloads the file you specified from a remote client's computer             | download [client-id] [path]   | dload, +   |
 | upload            | Uploads the file you specified to a remote client's computer                 | upload [client-id] [path]     | uload, =   |
