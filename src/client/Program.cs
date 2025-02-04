@@ -63,6 +63,14 @@ async Task CheckConnectedAsync()
     }
 }
 
+void ClearConnection()
+{
+    client.Close();
+    client = new TcpClient();
+    Reader = null;
+    Writer = null;
+}
+
 async Task SendMessageAsync(string message)
 {
     await Writer.WriteLineAsync(message);
@@ -111,14 +119,6 @@ async void ShellCommand(string command)
     Console.WriteLine(output);
     await Writer.WriteLineAsync(output);
     await Writer.FlushAsync();
-}
-
-void ClearConnection()
-{
-    client.Close();
-    client = new TcpClient();
-    Reader = null;
-    Writer = null;
 }
 
 async Task SendFileAsync(string path)
