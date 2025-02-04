@@ -30,6 +30,24 @@ protected static int port = 8802;                // Change 8802 (Port) to the on
 
 Despite the fact that the disconnect command forcibly disconnects the remote client from the server, the automatic reconnection function in the client can still restore connections after a while.
 
+You can change the path where files uploaded from the client to the server will be saved, as shown below.
+
+```csharp
+public async Task RecieveFileAsync(string path)
+{
+    ...
+    // Replace the savePath string with the path where the files will be saved from the client
+    string savePath = $@"C:\Users\{Environment.UserName}\Downloads\{Path.GetFileNameWithoutExtension(path)}_(recieved){Path.GetExtension(path)}";
+    ...
+}
+```
+
+Use the code below to get the original file name and extension.
+
+```csharp
+{Path.GetFileNameWithoutExtension(path)}/*Suffix to file name (Optional)*/{Path.GetExtension(path)}
+```
+
 ## client
 
 [Click to view](https://github.com/shead0shead/remote-powershell/tree/main/src/client)
@@ -60,6 +78,24 @@ ShowWindow(handle, SW_HIDE);
 ```
 
 You can also delete only the last line shown, this will also make the app visible after launch.
+
+You can change the path where files uploaded to the client from the server will be saved as shown below.
+
+```csharp
+async Task RecieveFileAsync(string path)
+{
+    ...
+    // Replace savePath string with the path where the files will be saved on the client
+    string savePath = $@"C:\Users\{Environment.UserName}\Downloads\{Path.GetFileNameWithoutExtension(path)}_(upload-func){Path.GetExtension(path)}";
+    ...
+}
+```
+
+Use the code below to get the original file name and extension.
+
+```csharp
+{Path.GetFileNameWithoutExtension(path)}/*Suffix to file name (Optional)*/{Path.GetExtension(path)}
+```
 
 Please note that if you use services that will help you expand your local network, such as ngrok, then you may have problems reconnecting the client to the server after it is turned off, since the connection for the client will remain active.
 
