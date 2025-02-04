@@ -9,7 +9,8 @@ await server.ListenAsync();
 class ServerObject
 {
     protected static string ipAddress = "127.0.0.1";
-    TcpListener tcpListener = new TcpListener(IPAddress.Parse(ipAddress), 8802);
+    protected static int port = 8802;
+    TcpListener tcpListener = new TcpListener(IPAddress.Parse(ipAddress), port);
     List<ClientObject> clients = new List<ClientObject>();
     protected internal void RemoveConnection(string id)
     {
