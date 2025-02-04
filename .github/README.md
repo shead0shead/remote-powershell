@@ -13,8 +13,8 @@ The server folder contains all the files related to the part of the program that
 Just change the IP and Port to the one you need and run the program while waiting for connections.
 
 ```csharp
-// Change IPAddress.Any (IP) and 8802 (Port) to the one you need
-TcpListener tcpListener = new TcpListener(IPAddress.Any, 8802);
+protected static string ipAddress = "127.0.0.1"; // Change 127.0.0.1 (IP) to the one you need
+protected static int port = 8802;                // Change 8802 (Port) to the one you need      
 ```
 
 | Command           | Description                                                                  | Syntax                        | Aliases    |
