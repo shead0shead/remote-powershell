@@ -62,8 +62,22 @@ class ServerObject
         while (true)
         {
             string? command = Console.ReadLine().ToLower();
+            // Help command
+            if ((command.StartsWith("help") || command.StartsWith("?")) && command.Split(' ').Length == 1)
+            {
+                Console.WriteLine(
+                    "  - Show command list                      HELP, ?" +
+                    "\n  - Clear terminal                         CLEAR, CLR" +
+                    "\n  - Execute command on remote client       EXECUTE, EXEC, !" +
+                    "\n  - Download file on remote client         DOWNLOAD, DLOAD, +" +
+                    "\n  - Upload file to remote client           UPLOAD, =" +
+                    "\n  - Show connections list                  CONNECTION-LIST, CON-LIST" +
+                    "\n  - Remove connection with remote client   CONNECTION-REMOVE, CON-REMOVE" +
+                    "\n  - Quit Remote-Powershell                 QUIT, EXIT"
+                    );
+            }
             // Execute command
-            if ((command.StartsWith("execute") || command.StartsWith("exec") || command.StartsWith("!")) && command.Split(' ').Length >= 3)
+            else if ((command.StartsWith("execute") || command.StartsWith("exec") || command.StartsWith("!")) && command.Split(' ').Length >= 3)
             {
                 string id = command.Split(' ')[1];
                 string message = "";
@@ -264,6 +278,7 @@ class Menu
 {
         "COMMANDS :: Available commands show below",
         "",
+        "[*] Show command list                      HELP, ?",
         "[*] Clear terminal                         CLEAR, CLR",
         "[*] Execute command on remote client       EXECUTE, EXEC, !",
         "[*] Download file on remote client         DOWNLOAD, DLOAD, +",
