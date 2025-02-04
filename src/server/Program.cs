@@ -8,7 +8,8 @@ menu.Show();
 await server.ListenAsync();
 class ServerObject
 {
-    TcpListener tcpListener = new TcpListener(IPAddress.Any, 8802);
+    protected static string ipAddress = "127.0.0.1";
+    TcpListener tcpListener = new TcpListener(IPAddress.Parse(ipAddress), 8802);
     List<ClientObject> clients = new List<ClientObject>();
     protected internal void RemoveConnection(string id)
     {
@@ -99,6 +100,18 @@ class ServerObject
                 }
                 await SendMessageAsync($"dload-func {message}", id);
             }
+            // Upload command
+            else if ((command.StartsWith("upload") || command.StartsWith("uload") || command.StartsWith("=")) && command.Split(' ').Length >= 3)
+            {
+                string id = command.Split(' ')[1];
+                string message = "";
+                for (int i = 2; i < command.Split(' ').Length; i++)
+                {
+                    if (i == 2) message += command.Split(' ')[i];
+                    else message += " " + command.Split(' ')[i];
+                }
+                await SendMessageAsync($"upload-func {message}", id);
+            }
         }
     }
 
@@ -152,6 +165,10 @@ class ClientObject
                     {
                         await RecieveFileAsync(message.Replace("dload-func ", string.Empty));
                     }
+                    else if (message.StartsWith("upload-func"))
+                    {
+                        await SendFileAsync(message.Replace("upload-func ", string.Empty));
+                    }
                     else
                     {
                         if (first == true) Console.WriteLine($"{Name} ({Id})");
@@ -197,6 +214,26 @@ class ClientObject
         }
     }
 
+    async Task SendFileAsync(string path)
+    {
+        try
+        {
+            string? response = await Reader.ReadLineAsync();
+            if (response == "upload-ready")
+            {
+                byte[] fileData = File.ReadAllBytes(path);
+                string base64Data = Convert.ToBase64String(fileData);
+                await Writer.WriteLineAsync(base64Data);
+                await Writer.FlushAsync();
+                Console.WriteLine("File has been sent: " + path);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error when sending the file: {e.Message}");
+        }
+    }
+
     protected internal void Close()
     {
         Writer.Close();
@@ -230,6 +267,7 @@ class Menu
         "[*] Clear terminal                         CLEAR, CLR",
         "[*] Execute command on remote client       EXECUTE, EXEC, !",
         "[*] Download file on remote client         DOWNLOAD, DLOAD, +",
+        "[*] Upload file to remote client           UPLOAD, =",
         "[*] Show connections list                  CONNECTION-LIST, CON-LIST",
         "[*] Remove connection with remote client   CONNECTION-REMOVE, CON-REMOVE",
         "[*] Quit Remote-Powershell                 QUIT, EXIT"
