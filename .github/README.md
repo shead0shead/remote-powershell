@@ -1,6 +1,6 @@
 # remote-powershell
 
-It is a terminal-based application that allows you to execute commands on a remote computer in PowerShell unnoticed.
+This is a terminal-based application that enables you to execute PowerShell commands on a remote client discreetly and without detection.
 
 The application is divided into two main sections: client and server. And there are also special versions of sections that have additional functionality. Each of the sections and versions is briefly described below, as well as a short guide on how to set them up.
 
@@ -21,6 +21,7 @@ TcpListener tcpListener = new TcpListener(IPAddress.Any, 8802);
 | ----------------- | ---------------------------------------------------------------------------- | ----------------------------- | ---------- |
 | execute           | Sends and executes the command you specified on the remote client's computer | execute [client-id] [command] | exec, !    |
 | download          | Downloads the file you specified from a remote client's computer             | download [client-id] [path]   | dload, +   |
+| upload            | Uploads the file you specified to a remote client's computer                 | upload [client-id] [path]     | uload, =   |
 | connection-list   | Gives a list of all active remote connections                                | connection-list               | con-list   |
 | connection-remove | Forcibly disconnects the specified remote client from the server             | connection-remove [client-id] | con-remove |
 | clear             | Clears the terminal                                                          | clear                         | clr        |
