@@ -77,6 +77,36 @@ class ServerObject
                     "\n  - Quit Remote-Powershell                 QUIT, EXIT"
                     );
             }
+            // Shorts command
+            else if ((command.StartsWith("shorts") || command.StartsWith("$")) && command.Split(' ').Length == 1)
+            {
+                Console.WriteLine(
+                    "  Add the 'short-' before command" +
+                    "\n  - Get system information                 SYSTEMINFO" +
+                    "\n  - Get list of processes                  PROCESSLIST" +
+                    "\n  - Kill a process                         KILLPROCESS <ID>, KILL <ID>" +
+                    "\n  - Get list of installed programs         INSTALLEDPROGRAMS" +
+                    "\n  - Shutdown remote client                 SHUTDOWN" +
+                    "\n  - Restart remote client                  RESTART" +
+                    "\n  - Get network interfaces                 NETWORKINTERFACES" +
+                    "\n  - List files in a directory              LISTFILES <PATH>, LS <PATH>" +
+                    "\n  - Create a directory                     MKDIR <PATH>, CREATEDIR <PATH>" +
+                    "\n  - Remove a file or directory             RM <PATH>, REMOVE <PATH>" +
+                    "\n  - Get current working directory          PWD" +
+                    "\n  - Change current directory               CD <PATH>, CHANGEDIR <PATH>" +
+                    "\n  - Get disk information                   DISKINFO" +
+                    "\n  - Get list of users                      USERLIST" +
+                    "\n  - Get battery information (laptops)      BATTERYINFO" +
+                    "\n  - Get list of services                   SERVICELIST" +
+                    "\n  - Start or stop a service                STARTSERVICE <NAME>, STOPSERVICE <NAME>" +
+                    "\n  - Get list of scheduled tasks            TASKLIST" +
+                    "\n  - Start or stop a scheduled task         STARTTASK <NAME>, STOPTASK <NAME>" +
+                    "\n  - Get event log information              EVENTLOG" +
+                    "\n  - Get running services                   RUNNINGSERVICES" +
+                    "\n  - Get running processes                  RUNNINGPROCESSES" +
+                    "\n  - Get running scheduled tasks            RUNNINGTASKS"
+                    );
+            }
             // Execute command
             else if ((command.StartsWith("execute") || command.StartsWith("exec") || command.StartsWith("!")) && command.Split(' ').Length >= 3)
             {
@@ -126,6 +156,92 @@ class ServerObject
                     else message += " " + command.Split(' ')[i];
                 }
                 await SendMessageAsync($"upload-func {message}", id);
+            }
+            // Shorts commands
+            else if (command.StartsWith("short-"))
+            {
+                string id = command.Split(' ')[1];
+                if (command.Replace("short-", string.Empty).StartsWith("systeminfo") && command.Split(' ').Length == 2) await SendMessageAsync("Get-ComputerInfo", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("processlist") && command.Split(' ').Length == 2) await SendMessageAsync("Get-Process", id);
+                else if ((command.Replace("short-", string.Empty).StartsWith("killprocess") || command.Replace("short-", string.Empty).StartsWith("kill")) && command.Split(' ').Length == 3)
+                {
+                    string processId = command.Split(' ')[2];
+                    await SendMessageAsync($"Stop-Process -Id {processId}", id);
+                }
+                else if (command.Replace("short-", string.Empty).StartsWith("installedprograms") && command.Split(' ').Length == 2) await SendMessageAsync("Get-WmiObject -Class Win32_Product | Select-Object -Property Name, Version", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("shutdown") && command.Split(' ').Length == 2) await SendMessageAsync("Stop-Computer -Force", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("restart") && command.Split(' ').Length == 2) await SendMessageAsync("Restart-Computer -Force", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("networkinterfaces") && command.Split(' ').Length == 2) await SendMessageAsync("Get-NetAdapter", id);
+                else if ((command.Replace("short-", string.Empty).StartsWith("listfiles") || command.Replace("short-", string.Empty).StartsWith("ls")) && command.Split(' ').Length >= 3)
+                {
+                    string path = "";
+                    for (int i = 2; i < command.Split(' ').Length; i++)
+                    {
+                        if (i == 2) path += command.Split(' ')[i];
+                        else path += " " + command.Split(' ')[i];
+                    }
+                    await SendMessageAsync($"Get-ChildItem -Path {path}", id);
+                }
+                else if ((command.Replace("short-", string.Empty).StartsWith("mkdir") || command.Replace("short-", string.Empty).StartsWith("createdir")) && command.Split(' ').Length >= 3)
+                {
+                    string path = "";
+                    for (int i = 2; i < command.Split(' ').Length; i++)
+                    {
+                        if (i == 2) path += command.Split(' ')[i];
+                        else path += " " + command.Split(' ')[i];
+                    }
+                    await SendMessageAsync($"New-Item -Path {path} -ItemType Directory", id);
+                }
+                else if ((command.Replace("short-", string.Empty).StartsWith("rm") || command.Replace("short-", string.Empty).StartsWith("remove")) && command.Split(' ').Length >= 3)
+                {
+                    string path = "";
+                    for (int i = 2; i < command.Split(' ').Length; i++)
+                    {
+                        if (i == 2) path += command.Split(' ')[i];
+                        else path += " " + command.Split(' ')[i];
+                    }
+                    await SendMessageAsync($"Remove-Item -Path {path} -Recurse -Force", id);
+                }
+                else if (command.Replace("short-", string.Empty).StartsWith("pwd") && command.Split(' ').Length == 2) await SendMessageAsync("Get-Location", id);
+                else if ((command.Replace("short-", string.Empty).StartsWith("cd") || command.Replace("short-", string.Empty).StartsWith("changedir")) && command.Split(' ').Length >= 3)
+                {
+                    string path = "";
+                    for (int i = 2; i < command.Split(' ').Length; i++)
+                    {
+                        if (i == 2) path += command.Split(' ')[i];
+                        else path += " " + command.Split(' ')[i];
+                    }
+                    await SendMessageAsync($"Set-Location -Path {path}", id);
+                }
+                else if (command.Replace("short-", string.Empty).StartsWith("diskinfo") && command.Split(' ').Length == 2) await SendMessageAsync("Get-PSDrive -PSProvider FileSystem", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("userlist") && command.Split(' ').Length == 2) await SendMessageAsync("Get-LocalUser", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("batteryinfo") && command.Split(' ').Length == 2) await SendMessageAsync("Get-WmiObject -Class Win32_Battery", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("servicelist") && command.Split(' ').Length == 2) await SendMessageAsync("Get-Service", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("startservice") && command.Split(' ').Length == 3)
+                {
+                    string serviceName = command.Split(' ')[2];
+                    await SendMessageAsync($"Start-Service -Name {serviceName}", id);
+                }
+                else if (command.Replace("short-", string.Empty).StartsWith("stopservice") && command.Split(' ').Length == 3)
+                {
+                    string serviceName = command.Split(' ')[2];
+                    await SendMessageAsync($"Stop-Service -Name {serviceName}", id);
+                }
+                else if (command.Replace("short-", string.Empty).StartsWith("tasklist") && command.Split(' ').Length == 2) await SendMessageAsync("Get-ScheduledTask", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("starttask") && command.Split(' ').Length == 3)
+                {
+                    string taskName = command.Split(' ')[2];
+                    await SendMessageAsync($"Start-ScheduledTask -TaskName {taskName}", id);
+                }
+                else if (command.Replace("short-", string.Empty).StartsWith("stoptask") && command.Split(' ').Length == 3)
+                {
+                    string taskName = command.Split(' ')[2];
+                    await SendMessageAsync($"Stop-ScheduledTask -TaskName {taskName}", id);
+                }
+                else if (command.Replace("short-", string.Empty).StartsWith("eventlog") && command.Split(' ').Length == 2) await SendMessageAsync("Get-EventLog -LogName System -Newest 10", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("runningservices") && command.Split(' ').Length == 2) await SendMessageAsync("Get-Service | Where-Object { $_.Status -eq 'Running' }", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("runningprocesses") && command.Split(' ').Length == 2) await SendMessageAsync("Get-Process | Where-Object { $_.Responding -eq $true }", id);
+                else if (command.Replace("short-", string.Empty).StartsWith("runningtasks") && command.Split(' ').Length == 2) await SendMessageAsync("Get-ScheduledTask | Where-Object { $_.State -eq 'Running' }", id);
             }
         }
     }
@@ -279,12 +395,13 @@ class Menu
         "COMMANDS :: Available commands show below",
         "",
         "[*] Show command list                      HELP, ?",
-        "[*] Clear terminal                         CLEAR, CLR",
+        "[*] Show shortcuts/aliases command list    SHORTS, $",
         "[*] Execute command on remote client       EXECUTE, EXEC, !",
         "[*] Download file on remote client         DOWNLOAD, DLOAD, +",
         "[*] Upload file to remote client           UPLOAD, =",
         "[*] Show connections list                  CONNECTION-LIST, CON-LIST",
         "[*] Remove connection with remote client   CONNECTION-REMOVE, CON-REMOVE",
+        "[*] Clear terminal                         CLEAR, CLR",
         "[*] Quit Remote-Powershell                 QUIT, EXIT"
     };
 
