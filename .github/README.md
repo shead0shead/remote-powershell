@@ -20,6 +20,7 @@ protected static int port = 8802;                // Change 8802 (Port) to the on
 | Command           | Description                                                                  | Syntax                        | Aliases    |
 | ----------------- | ---------------------------------------------------------------------------- | ----------------------------- | ---------- |
 | help              | Shows a list of all available commands                                       | help                          | ?          |
+| shorts            | Shows a list of short/aliases commands                                       | shorts                        | $          |
 | execute           | Sends and executes the command you specified on the remote client's computer | execute [client-id] [command] | exec, !    |
 | download          | Downloads the file you specified from a remote client's computer             | download [client-id] [path]   | dload, +   |
 | upload            | Uploads the file you specified to a remote client's computer                 | upload [client-id] [path]     | uload, =   |
