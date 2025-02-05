@@ -68,6 +68,7 @@ class ServerObject
             {
                 Console.WriteLine(
                     "  - Show command list                      HELP, ?" +
+                    "\n  - Show shortcuts/aliases command list    SHORTS, $" +
                     "\n  - Clear terminal                         CLEAR, CLR" +
                     "\n  - Execute command on remote client       EXECUTE, EXEC, !" +
                     "\n  - Download file on remote client         DOWNLOAD, DLOAD, +" +
