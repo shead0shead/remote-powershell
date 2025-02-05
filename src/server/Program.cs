@@ -82,29 +82,29 @@ class ServerObject
             {
                 Console.WriteLine(
                     "  Add the 'short-' before command" +
-                    "\n  - Get system information                 SYSTEMINFO" +
-                    "\n  - Get list of processes                  PROCESSLIST" +
-                    "\n  - Kill a process                         KILLPROCESS <ID>, KILL <ID>" +
-                    "\n  - Get list of installed programs         INSTALLEDPROGRAMS" +
-                    "\n  - Shutdown remote client                 SHUTDOWN" +
-                    "\n  - Restart remote client                  RESTART" +
-                    "\n  - Get network interfaces                 NETWORKINTERFACES" +
-                    "\n  - List files in a directory              LISTFILES <PATH>, LS <PATH>" +
-                    "\n  - Create a directory                     MKDIR <PATH>, CREATEDIR <PATH>" +
-                    "\n  - Remove a file or directory             RM <PATH>, REMOVE <PATH>" +
-                    "\n  - Get current working directory          PWD" +
-                    "\n  - Change current directory               CD <PATH>, CHANGEDIR <PATH>" +
-                    "\n  - Get disk information                   DISKINFO" +
-                    "\n  - Get list of users                      USERLIST" +
-                    "\n  - Get battery information (laptops)      BATTERYINFO" +
-                    "\n  - Get list of services                   SERVICELIST" +
-                    "\n  - Start or stop a service                STARTSERVICE <NAME>, STOPSERVICE <NAME>" +
-                    "\n  - Get list of scheduled tasks            TASKLIST" +
-                    "\n  - Start or stop a scheduled task         STARTTASK <NAME>, STOPTASK <NAME>" +
-                    "\n  - Get event log information              EVENTLOG" +
-                    "\n  - Get running services                   RUNNINGSERVICES" +
-                    "\n  - Get running processes                  RUNNINGPROCESSES" +
-                    "\n  - Get running scheduled tasks            RUNNINGTASKS"
+                    "\n  - Get system information                 SYSTEMINFO <CLIENT_ID>" +
+                    "\n  - Get list of processes                  PROCESSLIST <CLIENT_ID>" +
+                    "\n  - Kill a process                         KILLPROCESS <CLIENT_ID> <ID>, KILL <CLIENT_ID>" +
+                    "\n  - Get list of installed programs         INSTALLEDPROGRAMS <CLIENT_ID>" +
+                    "\n  - Shutdown remote client                 SHUTDOWN <CLIENT_ID>" +
+                    "\n  - Restart remote client                  RESTART <CLIENT_ID>" +
+                    "\n  - Get network interfaces                 NETWORKINTERFACES <CLIENT_ID>" +
+                    "\n  - List files in a directory              LISTFILES <CLIENT_ID> <PATH>, LS <CLIENT_ID> <PATH>" +
+                    "\n  - Create a directory                     MKDIR <CLIENT_ID> <PATH>, CREATEDIR <CLIENT_ID> <PATH>" +
+                    "\n  - Remove a file or directory             RM <CLIENT_ID> <PATH>, REMOVE <CLIENT_ID> <PATH>" +
+                    "\n  - Get current working directory          PWD <CLIENT_ID>" +
+                    "\n  - Change current directory               CD <CLIENT_ID> <PATH>, CHANGEDIR <CLIENT_ID> <PATH>" +
+                    "\n  - Get disk information                   DISKINFO <CLIENT_ID>" +
+                    "\n  - Get list of users                      USERLIST <CLIENT_ID>" +
+                    "\n  - Get battery information (laptops)      BATTERYINFO <CLIENT_ID>" +
+                    "\n  - Get list of services                   SERVICELIST <CLIENT_ID>" +
+                    "\n  - Start or stop a service                STARTSERVICE <CLIENT_ID> <NAME>, STOPSERVICE <CLIENT_ID> <NAME>" +
+                    "\n  - Get list of scheduled tasks            TASKLIST <CLIENT_ID>" +
+                    "\n  - Start or stop a scheduled task         STARTTASK <CLIENT_ID> <NAME>, STOPTASK <CLIENT_ID> <NAME>" +
+                    "\n  - Get event log information              EVENTLOG <CLIENT_ID>" +
+                    "\n  - Get running services                   RUNNINGSERVICES <CLIENT_ID>" +
+                    "\n  - Get running processes                  RUNNINGPROCESSES <CLIENT_ID>" +
+                    "\n  - Get running scheduled tasks            RUNNINGTASKS <CLIENT_ID>"
                     );
             }
             // Execute command
