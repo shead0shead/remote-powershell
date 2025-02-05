@@ -17,10 +17,12 @@ protected static string ipAddress = "127.0.0.1"; // Change 127.0.0.1 (IP) to the
 protected static int port = 8802;                // Change 8802 (Port) to the one you need      
 ```
 
+All available commands list:
+
 | Command           | Description                                                                  | Syntax                        | Aliases    |
 | ----------------- | ---------------------------------------------------------------------------- | ----------------------------- | ---------- |
 | help              | Shows a list of all available commands                                       | help                          | ?          |
-| shorts            | Shows a list of short/aliases commands                                       | shorts                        | $          |
+| shorts            | Shows a list of shortcuts/aliases commands                                   | shorts                        | $          |
 | execute           | Sends and executes the command you specified on the remote client's computer | execute [client-id] [command] | exec, !    |
 | download          | Downloads the file you specified from a remote client's computer             | download [client-id] [path]   | dload, +   |
 | upload            | Uploads the file you specified to a remote client's computer                 | upload [client-id] [path]     | uload, =   |
@@ -28,6 +30,38 @@ protected static int port = 8802;                // Change 8802 (Port) to the on
 | connection-remove | Forcibly disconnects the specified remote client from the server             | connection-remove [client-id] | con-remove |
 | clear             | Clears the terminal                                                          | clear                         | clr        |
 | quit              | Closes the application                                                       | quit                          | exit       |
+
+Shortcuts/aliases commands list:
+
+| Command           | Description                       | Syntax                                        | Aliases   |
+| ----------------- | --------------------------------- | ------------------------------------------ | --------- |
+| systeminfo        | Get system information            | short-systeminfo [client-id]                  |           |
+| processlist       | Get list of processes             | short-processlist [client-id]                 |           |
+| killprocess       | Kill a process                    | short-killprocess [client-id] [process-id]    | kill      |
+| installedprograms | Get list of installed programs    | short-installedprograms [client-id]           |           |
+| shutdown          | Shutdown remote client            | short-shutdown [client-id]                    |           |
+| restart           | Restart remote client             | short-restart [client-id]                     |           |
+| networkinterfaces | Get network interfaces            | short-networkinterfaces [client-id]           |           |
+| listfiles         | List files in a directory         | short-listfiles [client-id] [path]            | ls        |
+| mkdir             | Create a directory                | short-mkdir [client-id] [path]                | createdir |
+| rm                | Remove a file or directory        | short-rm [client-id] [path]                   | remove    |
+| pwd               | Get current working directory     | short-pwd [client-id]                         |           |
+| cd                | Change current directory          | short-cd [client-id] [path]                   | changedir |
+| diskinfo          | Get disk information              | short-diskinfo [client-id]                    |           |
+| userlist          | Get list of users                 | short-userlist [client-id]                    |           |
+| batteryinfo       | Get battery information (laptops) | short-batteryinfo [client-id]                 |           |
+| servicelist       | Get list of services              | short-servicelist [client-id]                 |           |
+| startservice      | Start a service                   | short-startservice [client-id] [service-name] |           |
+| stopservice       | Stop a service                    | short-stopservice [client-id] [service-name]  |           |
+| tasklist          | Get list of scheduled tasks       | short-tasklist [client-id]                    |           |
+| starttask         | Start a scheduled task            | short-starttask [client-id] [task-name]       |           |
+| stoptask          | Stop a scheduled task             | short-stoptask [client-id] [task-name]        |           |
+| eventlog          | Get event log information         | short-eventlog [client-id]                    |           |
+| runningservices   | Get running services              | short-runningservices [client-id]             |           |
+| runningprocesses  | Get running processes             | short-runningprocesses [client-id]            |           |
+| runningtasks      | Get running scheduled tasks       | short-runningtasks [client-id]                |           |
+| systeminfo        | Get system information            | short-systeminfo [client-id]                  |           |
+| systeminfo        | Get system information            | short-systeminfo [client-id]                  |           |
 
 Despite the fact that the disconnect command forcibly disconnects the remote client from the server, the automatic reconnection function in the client can still restore connections after a while.
 
