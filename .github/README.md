@@ -31,6 +31,8 @@ All available commands list:
 | clear             | Clears the terminal                                                          | clear                         | clr        |
 | quit              | Closes the application                                                       | quit                          | exit       |
 
+Despite the fact that the disconnect command forcibly disconnects the remote client from the server, the automatic reconnection function in the client can still restore connections after a while.
+
 Shortcuts/aliases commands list:
 
 | Command           | Description                       | Syntax                                        | Aliases   |
@@ -60,10 +62,6 @@ Shortcuts/aliases commands list:
 | runningservices   | Get running services              | short-runningservices [client-id]             |           |
 | runningprocesses  | Get running processes             | short-runningprocesses [client-id]            |           |
 | runningtasks      | Get running scheduled tasks       | short-runningtasks [client-id]                |           |
-| systeminfo        | Get system information            | short-systeminfo [client-id]                  |           |
-| systeminfo        | Get system information            | short-systeminfo [client-id]                  |           |
-
-Despite the fact that the disconnect command forcibly disconnects the remote client from the server, the automatic reconnection function in the client can still restore connections after a while.
 
 You can change the path where files uploaded from the client to the server will be saved, as shown below.
 
