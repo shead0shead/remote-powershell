@@ -28,6 +28,8 @@ All available commands list:
 | upload            | Uploads the file you specified to a remote client's computer                 | upload [client-id] [path]     | uload, =   |
 | connection-list   | Gives a list of all active remote connections                                | connection-list               | con-list   |
 | connection-remove | Forcibly disconnects the specified remote client from the server             | connection-remove [client-id] | con-remove |
+| window-show       | Shows a terminal window on the remote client's computer                      | window-show [client-id]       |            |
+| window-hide       | Hides a terminal window on the remote client's computer                      | window-hide [client-id]       |            |
 | clear             | Clears the terminal                                                          | clear                         | clr        |
 | quit              | Closes the application                                                       | quit                          | exit       |
 
