@@ -37,31 +37,31 @@ Shortcuts/aliases commands list:
 
 | Command           | Description                       | Syntax                                        | Aliases   |
 | ----------------- | --------------------------------- | ------------------------------------------ | --------- |
-| systeminfo        | Get system information            | short-systeminfo [client-id]                  |           |
-| processlist       | Get list of processes             | short-processlist [client-id]                 |           |
-| killprocess       | Kill a process                    | short-killprocess [client-id] [process-id]    | kill      |
-| installedprograms | Get list of installed programs    | short-installedprograms [client-id]           |           |
-| shutdown          | Shutdown remote client            | short-shutdown [client-id]                    |           |
-| restart           | Restart remote client             | short-restart [client-id]                     |           |
-| networkinterfaces | Get network interfaces            | short-networkinterfaces [client-id]           |           |
-| listfiles         | List files in a directory         | short-listfiles [client-id] [path]            | ls        |
-| mkdir             | Create a directory                | short-mkdir [client-id] [path]                | createdir |
-| rm                | Remove a file or directory        | short-rm [client-id] [path]                   | remove    |
-| pwd               | Get current working directory     | short-pwd [client-id]                         |           |
-| cd                | Change current directory          | short-cd [client-id] [path]                   | changedir |
-| diskinfo          | Get disk information              | short-diskinfo [client-id]                    |           |
-| userlist          | Get list of users                 | short-userlist [client-id]                    |           |
-| batteryinfo       | Get battery information (laptops) | short-batteryinfo [client-id]                 |           |
-| servicelist       | Get list of services              | short-servicelist [client-id]                 |           |
-| startservice      | Start a service                   | short-startservice [client-id] [service-name] |           |
-| stopservice       | Stop a service                    | short-stopservice [client-id] [service-name]  |           |
-| tasklist          | Get list of scheduled tasks       | short-tasklist [client-id]                    |           |
-| starttask         | Start a scheduled task            | short-starttask [client-id] [task-name]       |           |
-| stoptask          | Stop a scheduled task             | short-stoptask [client-id] [task-name]        |           |
-| eventlog          | Get event log information         | short-eventlog [client-id]                    |           |
-| runningservices   | Get running services              | short-runningservices [client-id]             |           |
-| runningprocesses  | Get running processes             | short-runningprocesses [client-id]            |           |
-| runningtasks      | Get running scheduled tasks       | short-runningtasks [client-id]                |           |
+| systeminfo        | Get system information            | systeminfo [client-id]                  |           |
+| processlist       | Get list of processes             | processlist [client-id]                 |           |
+| killprocess       | Kill a process                    | killprocess [client-id] [process-id]    | kill      |
+| installedprograms | Get list of installed programs    | installedprograms [client-id]           |           |
+| shutdown          | Shutdown remote client            | shutdown [client-id]                    |           |
+| restart           | Restart remote client             | restart [client-id]                     |           |
+| networkinterfaces | Get network interfaces            | networkinterfaces [client-id]           |           |
+| listfiles         | List files in a directory         | listfiles [client-id] [path]            | ls        |
+| mkdir             | Create a directory                | mkdir [client-id] [path]                | createdir |
+| rm                | Remove a file or directory        | rm [client-id] [path]                   | remove    |
+| pwd               | Get current working directory     | pwd [client-id]                         |           |
+| cd                | Change current directory          | cd [client-id] [path]                   | changedir |
+| diskinfo          | Get disk information              | diskinfo [client-id]                    |           |
+| userlist          | Get list of users                 | userlist [client-id]                    |           |
+| batteryinfo       | Get battery information (laptops) | batteryinfo [client-id]                 |           |
+| servicelist       | Get list of services              | servicelist [client-id]                 |           |
+| startservice      | Start a service                   | startservice [client-id] [service-name] |           |
+| stopservice       | Stop a service                    | stopservice [client-id] [service-name]  |           |
+| tasklist          | Get list of scheduled tasks       | tasklist [client-id]                    |           |
+| starttask         | Start a scheduled task            | starttask [client-id] [task-name]       |           |
+| stoptask          | Stop a scheduled task             | stoptask [client-id] [task-name]        |           |
+| eventlog          | Get event log information         | eventlog [client-id]                    |           |
+| runningservices   | Get running services              | runningservices [client-id]             |           |
+| runningprocesses  | Get running processes             | runningprocesses [client-id]            |           |
+| runningtasks      | Get running scheduled tasks       | runningtasks [client-id]                |           |
 
 You can change the path where files uploaded from the client to the server will be saved, as shown below.
 
