@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using System.Reflection.PortableExecutable;
 
+if (Console.WindowHeight <= 31) Console.WindowHeight = 31;
 ServerObject server = new ServerObject();
 Menu menu = new Menu();
 menu.Show();
@@ -77,6 +77,8 @@ class ServerObject
                     "\n  - Upload file to remote client           UPLOAD, =" +
                     "\n  - Show connections list                  CONNECTION-LIST, CON-LIST" +
                     "\n  - Remove connection with remote client   CONNECTION-REMOVE, CON-REMOVE" +
+                    "\n  - Show window on remote client           WINDOW-SHOW" +
+                    "\n  - Hide window on remote client           WINDOW-HIDE" +
                     "\n  - Quit Remote-Powershell                 QUIT, EXIT"
                     );
             }
@@ -400,6 +402,8 @@ class Menu
         "[*] Upload file to remote client           UPLOAD, =",
         "[*] Show connections list                  CONNECTION-LIST, CON-LIST",
         "[*] Remove connection with remote client   CONNECTION-REMOVE, CON-REMOVE",
+        "[*] Show window on remote client           WINDOW-SHOW",
+        "[*] Hide window on remote client           WINDOW-HIDE",
         "[*] Clear terminal                         CLEAR, CLR",
         "[*] Quit Remote-Powershell                 QUIT, EXIT"
     };
